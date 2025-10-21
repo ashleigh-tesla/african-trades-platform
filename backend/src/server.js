@@ -27,6 +27,7 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cors from "cors";
+import portfolioRoutes from "../routes/portfolioRoutes.js";
 
 dotenv.config();
 
@@ -45,6 +46,7 @@ mongoose
 // Routes
 import authRoutes from "../routes/authRoutes.js";
 app.use("/api/auth", authRoutes);
+app.use("/api/portfolios", portfolioRoutes);
 
 // Start the server
 const PORT = process.env.PORT || 5000;

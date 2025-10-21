@@ -21,6 +21,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
+import UploadPortfolio from "./pages/UploadPortfolio";
+import BrowseTrades from "./pages/BrowseTrades";
 
 function App() {
   return (
@@ -29,6 +31,8 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/upload" element={<UploadPortfolio />} />
+        <Route path="/browse" element={<BrowseTrades />} />
       </Routes>
     </Router>
   );
