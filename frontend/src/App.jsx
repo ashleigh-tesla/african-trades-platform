@@ -53,6 +53,7 @@ import Dashboard from "./pages/Dashboard";
 import Profile from "./pages/Profile";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { AuthProvider } from "./context/AuthContext";
+import TradepersonProfile from "./pages/TradepersonProfile";
 
 function App() {
   return (
@@ -75,6 +76,7 @@ function App() {
                 }
               />
               <Route path="/browse" element={<BrowseTrades />} />
+              <Route path="/profile/:id" element={<TradepersonProfile />} />
               <Route
                 path="/profile"
                 element={
