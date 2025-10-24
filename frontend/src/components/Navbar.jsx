@@ -113,6 +113,7 @@ const Navbar = () => {
             </>
           )}
         </div>
+        <Notifications />
       </div>
     </nav>
   );

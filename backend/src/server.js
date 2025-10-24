@@ -30,6 +30,8 @@ import cors from "cors";
 import authRoutes from "../routes/authRoutes.js";
 import portfolioRoutes from "../routes/portfolioRoutes.js";
 import reviewRoutes from "../routes/reviewRoutes.js";
+import bookingRoutes from "./routes/bookingRoutes.js";
+import notificationRoutes from "./routes/notificationRoutes.js";
 
 dotenv.config();
 
@@ -50,6 +52,42 @@ app.use("/api/auth", authRoutes);
 app.use("/api/portfolios", portfolioRoutes);
 app.use("/api/reviews", reviewRoutes);
 
+app.use("/api/notifications", notificationRoutes);
+app.use("/api/bookings", bookingRoutes);
+
 // Start the server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
+
+import { Server } from "socket.io";
+import http from "http";
+
+// Create HTTP server
+const server = http.createServer(app);
+
+// Create Socket.io instance
+const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:5173", // your frontend URL
+    credentials: true,
+  },
+});
+
+io.on("connection", (socket) => {
+  console.log("User connected:", socket.id);
+
+  socket.on("joinRoom", (room) => {
+    socket.join(room);
+  });
+
+  socket.on("sendMessage", (messageData) => {
+    io.to(messageData.room).emit("receiveMessage", messageData);
+  });
+
+  socket.on("disconnect", () => {
+    console.log("User disconnected");
+  });
+});
+
+// Replace app.listen() with:
+server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
